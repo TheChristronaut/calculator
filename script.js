@@ -1,131 +1,106 @@
-let numOne;
-let numTwo;
-let operator;
-let displayValue;
-
-/* const numberOne = document.querySelector("#onebtn");
-const numberTwo = document.querySelector("#twobtn");
-const numberThree = document.querySelector("#threebtn");
-const numberFour = document.querySelector("#fourbtn");
-const numberFive = document.querySelector("#fivebtn");
-const numberSix = document.querySelector("#sixbtn");
-const numberSeven = document.querySelector("#sevenbtn");
-const numberEight = document.querySelector("#eightbtn");
-const numberNine = document.querySelector("#ninebtn");
-const numberZero = document.querySelector("#zerobtn"); */
+let firstInputValue = "";
+let operatorValue = "";
+let secondInputValue = "";
+let isInputtingSecondValue = false;
 
 const numberButtons = document.querySelectorAll(".numberbtn");
+const operatorButtons = document.querySelectorAll(".operatorbtn");
+const operateButton = document.querySelector("#equalbtn");
 
 let display = document.querySelector("#display");
+let displayContent = document.createElement("div");
 
-numberButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        let displayInput = button.textContent;
-        display.textContent += displayInput;
-        let displayValue = display.textContent;
-        console.log(displayValue);
+function updateFirstInputDisplay(button) {
+    let displayInput = button.textContent;
+    displayContent.textContent += displayInput;
+    firstInputValue = displayContent.textContent;
+    display.textContent = firstInputValue;
+}
+
+function getInputValue() {
+    numberButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            if (!isInputtingSecondValue) {
+                updateFirstInputDisplay(button);
+                console.log("First Value:", firstInputValue);
+            } else {
+                updateSecondInputDisplay(button);
+                console.log("Second Value:", secondInputValue);
+            }
+        });
     });
-});
+};
 
-/* numberTwo.addEventListener("click", () => {
-    let displayInput = 2;
-    display.textContent += displayInput;
-    let displayValue = display.textContent;
-    console.log(displayValue);
-});
+function getOperatorValue() {
+    operatorButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            updateFirstInputDisplay(button);
+            operatorValue = button.textContent;
+            isInputtingSecondValue = true;
+            displayContent.textContent = "";
+            console.log("Operator Value:", operatorValue);
+        });
+    });
+}
 
-numberThree.addEventListener("click", () => {
-    let displayInput = 2;
-    display.textContent += displayInput;
-    let displayValue = display.textContent;
-    console.log(displayValue);
-});
+function updateSecondInputDisplay(button) {
+    let displayInput = button.textContent;
+    displayContent.textContent += displayInput;
+    secondInputValue = displayContent.textContent;
+    display.textContent = secondInputValue;
+}
 
-numberFour.addEventListener("click", () => {
-    let displayInput = 2;
-    display.textContent += displayInput;
-    let displayValue = display.textContent;
-    console.log(displayValue);
-});
+getInputValue();
+getOperatorValue();
 
-numberFive.addEventListener("click", () => {
-    let displayInput = 2;
-    display.textContent += displayInput;
-    let displayValue = display.textContent;
-    console.log(displayValue);
-});
-
-numberSix.addEventListener("click", () => {
-    let displayInput = 2;
-    display.textContent += displayInput;
-    let displayValue = display.textContent;
-    console.log(displayValue);
-});
-
-numberSeven.addEventListener("click", () => {
-    let displayInput = 2;
-    display.textContent += displayInput;
-    let displayValue = display.textContent;
-    console.log(displayValue);
-});
-
-numberEight.addEventListener("click", () => {
-    let displayInput = 2;
-    display.textContent += displayInput;
-    let displayValue = display.textContent;
-    console.log(displayValue);
-});
-
-numberNine.addEventListener("click", () => {
-    let displayInput = 2;
-    display.textContent += displayInput;
-    let displayValue = display.textContent;
-    console.log(displayValue);
-});
-
-numberZero.addEventListener("click", () => {
-    let displayInput = 2;
-    display.textContent += displayInput;
-    let displayValue = display.textContent;
-    console.log(displayValue);
-}); */
-
-function addition(numOne, numTwo) {
-    sum = numOne + numTwo;
+function addition(firstInputValue, secondInputValue) {
+    isInputtingSecondValue = false;
+    displayContent.textContent = "";
+    sum = (parseFloat(firstInputValue)) + (parseFloat(secondInputValue));
     console.log(sum);
+    displayContent.textContent = sum;
 }
 
-function subtraction(numOne, numTwo) {
-    difference = numOne - numTwo;
+function subtraction(firstInputValue, secondInputValue) {
+    isInputtingSecondValue = false;
+    displayContent.textContent = "";
+    difference = (parseFloat(firstInputValue)) - (parseFloat(secondInputValue));
     console.log(difference);
+    displayContent.textContent = difference;
 }
 
-function multiplication(numOne, numTwo) {
-    product = numOne * numTwo;
+function multiplication(firstInputValue, secondInputValue) {
+    isInputtingSecondValue = false;
+    displayContent.textContent = "";
+    product = (parseFloat(firstInputValue)) * (parseFloat(secondInputValue));
     console.log(product);
+    displayContent.textContent = product;
 }
 
-function division(numOne, numTwo) {
-    quotient = numOne / numTwo;
+function division(firstInputValue, secondInputValue) {
+    isInputtingSecondValue = false;
+    displayContent.textContent = "";
+    quotient = (parseFloat(firstInputValue)) / (parseFloat(secondInputValue));
     console.log(quotient);
+    displayContent.textContent = quotient;
 }
 
-function operate(numOne, operator, numTwo){
-    if (operator == "add") {
-        addition(numOne,numTwo)
+function operate(firstInputValue, operatorValue, secondInputValue){
+    if (operatorValue === "+") {
+        addition(firstInputValue, secondInputValue)
     }
-    if (operator == "subtract") {
-        subtraction(numOne,numTwo)
+    if (operatorValue === "-") {
+        subtraction(firstInputValue, secondInputValue)
     }
-    if (operator == "multiply") {
-        multiplication(numOne,numTwo)
+    if (operatorValue === "x") {
+        multiplication(firstInputValue, secondInputValue)
     }
-    if (operator == "divide") {
-        division(numOne,numTwo)
+    if (operatorValue === "/") {
+        division(firstInputValue, secondInputValue)
     }
+    display.textContent = displayContent.textContent;
 }
 
-operate(2, "add", 3);
-operate(2, "subtract", 3);
-operate(2, "multiply", 3);
-operate(2, "divide", 3);
+operateButton.addEventListener("click", () => {
+    operate(firstInputValue, operatorValue, secondInputValue)
+});
