@@ -6,6 +6,7 @@ let isInputtingSecondValue = false;
 const numberButtons = document.querySelectorAll(".numberbtn");
 const operatorButtons = document.querySelectorAll(".operatorbtn");
 const operateButton = document.querySelector("#equalbtn");
+const clearButton = document.querySelector("#clearbtn");
 
 let display = document.querySelector("#display");
 let displayContent = document.createElement("div");
@@ -85,7 +86,7 @@ function division(firstInputValue, secondInputValue) {
     displayContent.textContent = quotient;
 }
 
-function operate(firstInputValue, operatorValue, secondInputValue){
+function operate(firstInputValue, operatorValue, secondInputValue) {
     if (operatorValue === "+") {
         addition(firstInputValue, secondInputValue)
     }
@@ -101,6 +102,16 @@ function operate(firstInputValue, operatorValue, secondInputValue){
     display.textContent = displayContent.textContent;
 }
 
+function clear() {
+    isInputtingSecondValue = false;
+    displayContent.textContent = "";
+    display.textContent = displayContent.textContent;
+}
+
 operateButton.addEventListener("click", () => {
     operate(firstInputValue, operatorValue, secondInputValue)
+});
+
+clearButton.addEventListener("click", () => {
+    clear()
 });
