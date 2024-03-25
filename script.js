@@ -1,6 +1,18 @@
 let numOne;
 let numTwo;
 let operator;
+let displayValue;
+
+const numberOne = document.querySelector("#onebtn");
+const numberTwo = document.querySelector("#twobtn");
+const numberThree = document.querySelector("#threebtn");
+const numberFour = document.querySelector("#fourbtn");
+const numberFive = document.querySelector("#fivebtn");
+const numberSix = document.querySelector("#sixbtn");
+const numberSeven = document.querySelector("#sevenbtn");
+const numberEight = document.querySelector("#eightbtn");
+const numberNine = document.querySelector("#ninebtn");
+const numberZero = document.querySelector("#zerobtn");
 
 function addition(numOne, numTwo) {
     sum = numOne + numTwo;
