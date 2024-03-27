@@ -35,11 +35,22 @@ function getInputValue() {
 function getOperatorValue() {
     operatorButtons.forEach(button => {
         button.addEventListener("click", () => {
-            updateFirstInputDisplay(button);
-            operatorValue = button.textContent;
-            isInputtingSecondValue = true;
-            displayContent.textContent = "";
-            console.log("Operator Value:", operatorValue);
+            if (secondInputValue === "" || 0) {
+                updateFirstInputDisplay(button);
+                displayContent.textContent = "";
+                operatorValue = button.textContent;
+                displayContent.textContent = "";
+                isInputtingSecondValue = true;
+                console.log("Operator Value:", operatorValue);
+            } else {
+                operate(firstInputValue, operatorValue, secondInputValue);
+                updateFirstInputDisplay(button);
+                secondInputValue = "";
+                displayContent.textContent = "";
+                operatorValue = button.textContent;
+                displayContent.textContent = "";
+                isInputtingSecondValue = true;
+            }
         });
     });
 }
@@ -100,9 +111,16 @@ function operate(firstInputValue, operatorValue, secondInputValue) {
         division(firstInputValue, secondInputValue)
     }
     display.textContent = displayContent.textContent;
+
+    firstInputValue = displayContent.textContent;
+    secondInputValue = "";
+    operatorValue = "";
+    isInputtingSecondValue = false;
 }
 
 function clear() {
+    firstInputValue = 0;
+    secondInputValue = 0;
     isInputtingSecondValue = false;
     displayContent.textContent = "";
     display.textContent = displayContent.textContent;
