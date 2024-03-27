@@ -97,6 +97,12 @@ function division(firstInputValue, secondInputValue) {
 }
 
 function operate(firstInputValue, operatorValue, secondInputValue) {
+    if (operatorValue === "/" && (firstInputValue === "0" || secondInputValue === "0")) {
+        displayContent.textContent = "";
+        message = "Why?";
+        console.log(message);
+        displayContent.textContent = message;
+    }
     if (operatorValue === "+") {
         addition(firstInputValue, secondInputValue)
     }
@@ -106,7 +112,7 @@ function operate(firstInputValue, operatorValue, secondInputValue) {
     if (operatorValue === "x") {
         multiplication(firstInputValue, secondInputValue)
     }
-    if (operatorValue === "/") {
+    if (operatorValue === "/" && firstInputValue !== "0" && secondInputValue !== "0") {
         division(firstInputValue, secondInputValue)
     }
     display.textContent = displayContent.textContent;
